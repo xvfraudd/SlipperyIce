@@ -15,10 +15,11 @@ namespace SlipperyIce.Behaviours
 
         void Awake()
         {
+            Debug.Log("Hit awake on icehandler");
             instance = this;
-            ice = new Material(Shader.Find("Standard"));
-            StartCoroutine(LoadImage());
-            ground = gameObject.GetComponent<MeshRenderer>().materials[0];
+            //ice = new Material(Shader.Find("Standard"));
+            //StartCoroutine(LoadImage());
+            //ground = gameObject.GetComponent<MeshRenderer>().materials[0];
         }
 
         public void Enable()
@@ -49,6 +50,7 @@ namespace SlipperyIce.Behaviours
 
         void SetGroundTexture(bool mat)
         {
+            return;
             //Lemming why you make everything an atlas :(
             if (mat)
             {

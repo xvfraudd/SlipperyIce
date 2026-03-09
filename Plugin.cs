@@ -1,25 +1,24 @@
 ﻿using System;
 using System.Reflection;
-using System.Collections.Generic;
-using BepInEx;
 using HarmonyLib;
+using System.Collections.Generic;
+using MelonLoader;
 using UnityEngine;
 using SlipperyIce.Behaviours;
-using Utilla;
 
+[assembly: MelonInfo(typeof(SlipperyIce.Plugin), "SlipperyIce", "1.0.3", "fchb1239 / xvfraudd")]
+[assembly: MelonGame("Another Axiom", "Gorilla Tag")]
 namespace SlipperyIce
 {
-    [BepInPlugin(PluginInfo.GUID, PluginInfo.Name, PluginInfo.Version)]
-    [BepInDependency("org.legoandmars.gorillatag.utilla", "1.5.0")]
-    [ModdedGamemode]
-    public class Plugin : BaseUnityPlugin
+    public class Plugin : MelonMod
     {
         public static bool modLoaded;
         public static bool modEnabledTemp = false;
 
-        public void Awake()
+        public override void OnLateInitializeMelon()
         {
-            new Harmony(PluginInfo.GUID).PatchAll(Assembly.GetExecutingAssembly());
+            IceHandler.instance.Enable();
+            IceHandler.instance.JoinedModded();
         }
 
         void OnEnable()
@@ -42,14 +41,12 @@ namespace SlipperyIce
             Console.WriteLine("Disabled the ice");
         }
 
-        [ModdedGamemodeJoin]
         void JoinedModded()
         {
             IceHandler.instance.JoinedModded();
             Console.WriteLine("Joined modded room");
         }
 
-        [ModdedGamemodeLeave]
         void LeftModded()
         {
             IceHandler.instance.LeftModded();

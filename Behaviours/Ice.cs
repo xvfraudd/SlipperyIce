@@ -7,7 +7,7 @@ namespace SlipperyIce.Behaviours
     {
         public static Ice instance;
         public bool isSlipping;
-        GorillaLocomotion.Player player = GorillaLocomotion.Player.Instance;
+        GorillaLocomotion.GTPlayer player = GorillaLocomotion.GTPlayer.Instance;
         //MeshCollider meshCol;
         //PhysicMaterial physicMat = Resources.Load<PhysicMaterial>("objects/forest/materials/Slippery");
         Rigidbody rb;
@@ -15,6 +15,7 @@ namespace SlipperyIce.Behaviours
 
         void Awake()
         {
+            Debug.Log("Hit awake on ice");
             instance = this;
             //the physicmat makes it slide better along the ground... i think
             //meshCol = transform.GetComponent<MeshCollider>();
@@ -39,7 +40,7 @@ namespace SlipperyIce.Behaviours
                 //player.defaultSlideFactor = 1f;
                 //HarmonyLib.Traverse.Create(player).Field("slipPercentage").SetValue(1f);
                 //meshCol.material = physicMat;
-                vel = rb.velocity;
+                vel = rb.linearVelocity;
                 vel.y = 0;
             }
         }
@@ -55,7 +56,7 @@ namespace SlipperyIce.Behaviours
         void Update()
         {
             if (isSlipping)
-                rb.velocity = vel;
+                rb.linearVelocity = vel;
         }
     }
 }
